@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -24,6 +25,18 @@ export default {
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
+				space: {
+					dark: '#0a0a19',
+					darker: '#050510',
+					light: '#1e1e3f',
+				},
+				cosmic: {
+					blue: '#4CC9F0',
+					purple: '#7B2CBF',
+					pink: '#F72585',
+					orange: '#FF9E00',
+					yellow: '#FFD700',
+				},
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))'
@@ -51,16 +64,6 @@ export default {
 				card: {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
-				},
-				sidebar: {
-					DEFAULT: 'hsl(var(--sidebar-background))',
-					foreground: 'hsl(var(--sidebar-foreground))',
-					primary: 'hsl(var(--sidebar-primary))',
-					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-					accent: 'hsl(var(--sidebar-accent))',
-					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-					border: 'hsl(var(--sidebar-border))',
-					ring: 'hsl(var(--sidebar-ring))'
 				}
 			},
 			borderRadius: {
@@ -69,27 +72,44 @@ export default {
 				sm: 'calc(var(--radius) - 4px)'
 			},
 			keyframes: {
-				'accordion-down': {
-					from: {
-						height: '0'
-					},
-					to: {
-						height: 'var(--radix-accordion-content-height)'
-					}
+				"accordion-down": {
+					from: { height: "0" },
+					to: { height: "var(--radix-accordion-content-height)" },
 				},
-				'accordion-up': {
-					from: {
-						height: 'var(--radix-accordion-content-height)'
+				"accordion-up": {
+					from: { height: "var(--radix-accordion-content-height)" },
+					to: { height: "0" },
+				},
+				"float": {
+					"0%, 100%": { transform: "translateY(0)" },
+					"50%": { transform: "translateY(-10px)" },
+				},
+				"twinkle": {
+					"0%, 100%": { opacity: "1" },
+					"50%": { opacity: "0.5" },
+				},
+				"pulse-glow": {
+					"0%, 100%": { 
+						boxShadow: "0 0 5px 0px rgba(76, 201, 240, 0.3)",
+						transform: "scale(1)"
 					},
-					to: {
-						height: '0'
+					"50%": { 
+						boxShadow: "0 0 15px 2px rgba(76, 201, 240, 0.6)", 
+						transform: "scale(1.02)"
 					}
 				}
 			},
 			animation: {
-				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
-			}
+				"accordion-down": "accordion-down 0.2s ease-out",
+				"accordion-up": "accordion-up 0.2s ease-out",
+				"float": "float 6s ease-in-out infinite",
+				"twinkle": "twinkle 4s ease-in-out infinite",
+				"pulse-glow": "pulse-glow 3s ease-in-out infinite",
+			},
+			fontFamily: {
+				sans: ['Inter', 'sans-serif'],
+				display: ['"Space Grotesk"', 'sans-serif'],
+			},
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
