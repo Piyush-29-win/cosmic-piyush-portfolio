@@ -17,7 +17,7 @@ const Planet = ({ position = [0, 0, 0], size = 1, rotationSpeed = 0.005, texture
   return (
     <mesh ref={meshRef} position={position}>
       <sphereGeometry args={[size, 32, 32]} />
-      <meshStandardMaterial map={texture} />
+      <meshStandardMaterial map={texture} color="white" />
     </mesh>
   );
 };
@@ -37,7 +37,11 @@ const FloatingRing = ({ position = [0, 0, 0], size = 3, thickness = 0.2, color =
   return (
     <mesh ref={meshRef} position={position}>
       <torusGeometry args={[size, thickness, 16, 100]} />
-      <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.5} />
+      <meshStandardMaterial 
+        color={color} 
+        emissive={color} 
+        emissiveIntensity={0.5} 
+      />
     </mesh>
   );
 };
