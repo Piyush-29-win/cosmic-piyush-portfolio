@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 @tailwind base;
@@ -86,6 +87,31 @@
 
   :root.light-theme .star-field {
     opacity: 0.3;
+  }
+  
+  /* Light theme specific styles */
+  :root.light-theme .text-glow {
+    text-shadow: 0 0 10px rgba(67, 97, 238, 0.3);
+  }
+  
+  :root.light-theme .bg-space-dark {
+    @apply bg-white;
+  }
+  
+  :root.light-theme .bg-space-darker {
+    @apply bg-gray-50;
+  }
+  
+  :root.light-theme .bg-space-light {
+    @apply bg-gray-100;
+  }
+  
+  :root.light-theme .text-gray-300 {
+    @apply text-gray-700;
+  }
+  
+  :root.light-theme .text-gray-400 {
+    @apply text-gray-600;
   }
 }
 

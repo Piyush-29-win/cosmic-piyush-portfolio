@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { GithubIcon, LinkedinIcon, CodeIcon, MailIcon, Menu, X } from 'lucide-react';
@@ -51,7 +52,7 @@ const NavBar = () => {
           className="flex items-center gap-2 cursor-pointer"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
-          <div className="font-display text-xl font-bold text-white">
+          <div className={`font-display text-xl font-bold ${theme === 'light' ? 'text-gray-800' : 'text-white'}`}>
             <span className="text-cosmic-blue">&lt;</span>
             Piyush
             <span className="text-cosmic-blue">/&gt;</span>
@@ -87,7 +88,7 @@ const NavBar = () => {
               onClick={toggleTheme}
               className={`p-2 rounded-full transition-colors ${
                 theme === 'light'
-                  ? 'bg-gray-100 hover:bg-gray-200'
+                  ? 'bg-blue-50 hover:bg-blue-100'
                   : 'bg-gray-800 hover:bg-gray-700'
               }`}
               aria-label="Toggle theme"
@@ -95,7 +96,7 @@ const NavBar = () => {
               {theme === 'dark' ? (
                 <Sun size={20} className="text-yellow-400" />
               ) : (
-                <Moon size={20} className="text-gray-600" />
+                <Moon size={20} className="text-blue-600" />
               )}
             </motion.button>
             
@@ -108,7 +109,7 @@ const NavBar = () => {
                 aria-label={link.ariaLabel}
                 whileHover={{ scale: 1.2, rotate: 5 }}
                 whileTap={{ scale: 0.9 }}
-                className="text-gray-300 hover:text-cosmic-blue transition-colors"
+                className={`${theme === 'light' ? 'text-gray-600' : 'text-gray-300'} hover:text-cosmic-blue transition-colors`}
               >
                 <link.icon size={20} />
               </motion.a>
@@ -142,7 +143,7 @@ const NavBar = () => {
             size="icon"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
-            className="text-white"
+            className={theme === 'light' ? 'text-gray-800' : 'text-white'}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </Button>
@@ -154,7 +155,7 @@ const NavBar = () => {
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
-          className="md:hidden bg-space-dark/95 backdrop-blur-md shadow-lg"
+          className={`md:hidden ${theme === 'light' ? 'bg-white/95' : 'bg-space-dark/95'} backdrop-blur-md shadow-lg`}
         >
           <div className="container mx-auto px-4 py-5">
             <ul className="flex flex-col gap-4">
@@ -162,7 +163,7 @@ const NavBar = () => {
                 <li key={link.name}>
                   <a 
                     href={link.href}
-                    className="text-gray-300 hover:text-cosmic-blue transition-colors block py-2"
+                    className={`${theme === 'light' ? 'text-gray-700' : 'text-gray-300'} hover:text-cosmic-blue transition-colors block py-2`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {link.name}
@@ -179,7 +180,7 @@ const NavBar = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={link.ariaLabel}
-                  className="text-gray-300 hover:text-cosmic-blue transition-colors"
+                  className={`${theme === 'light' ? 'text-gray-700' : 'text-gray-300'} hover:text-cosmic-blue transition-colors`}
                 >
                   <link.icon size={20} />
                 </a>
