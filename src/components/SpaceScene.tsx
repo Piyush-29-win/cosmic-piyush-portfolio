@@ -3,10 +3,12 @@ import { useRef, useEffect } from 'react';
 import { Canvas, extend, useFrame } from '@react-three/fiber';
 import { OrbitControls, Stars, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
+import { useTheme } from '@/contexts/ThemeContext';
 
-const Planet = ({ position = [0, 0, 0], size = 1, rotationSpeed = 0.005, textureUrl = '' }) => {
+const Planet = ({ position = [0, 0, 0] as [number, number, number], size = 1, rotationSpeed = 0.005, textureUrl = '' }) => {
   const meshRef = useRef<THREE.Mesh>(null);
-  const texture = useTexture('/placeholder.svg'); // Using placeholder as fallback
+  const texture = useTexture('/placeholder.svg');
+  const { theme } = useTheme();
   
   useFrame(() => {
     if (meshRef.current) {
@@ -17,17 +19,25 @@ const Planet = ({ position = [0, 0, 0], size = 1, rotationSpeed = 0.005, texture
   return (
     <mesh ref={meshRef} position={position}>
       <sphereGeometry args={[size, 32, 32]} />
-      <meshStandardMaterial map={texture} color="white" />
+      <meshStandardMaterial 
+        map={texture} 
+        color={theme === 'light' ? '#f0f0f0' : 'white'} 
+      />
     </mesh>
   );
 };
 
-const FloatingRing = ({ position = [0, 0, 0], size = 3, thickness = 0.2, color = '#4CC9F0' }) => {
+const FloatingRing = ({ 
+  position = [0, 0, 0] as [number, number, number], 
+  size = 3, 
+  thickness = 0.2, 
+  color = '#4CC9F0' 
+}) => {
   const meshRef = useRef<THREE.Mesh>(null);
+  const { theme } = useTheme();
   
   useFrame(({ clock }) => {
     if (meshRef.current) {
-      // Gentle floating motion
       meshRef.current.rotation.x = Math.sin(clock.getElapsedTime() * 0.3) * 0.1;
       meshRef.current.rotation.y += 0.002;
       meshRef.current.rotation.z = Math.cos(clock.getElapsedTime() * 0.2) * 0.05;
@@ -40,25 +50,49 @@ const FloatingRing = ({ position = [0, 0, 0], size = 3, thickness = 0.2, color =
       <meshStandardMaterial 
         color={color} 
         emissive={color} 
-        emissiveIntensity={0.5} 
+        emissiveIntensity={theme === 'light' ? 0.3 : 0.5} 
       />
     </mesh>
   );
 };
 
 const SpaceScene = () => {
+  const { theme } = useTheme();
+
   return (
     <div className="h-[25rem] w-full">
       <Canvas camera={{ position: [0, 0, 8], fov: 60 }}>
-        <ambientLight intensity={0.2} />
-        <pointLight position={[10, 10, 10]} intensity={1} />
-        <pointLight position={[-10, -10, -5]} intensity={0.5} color="#7B2CBF" />
+        <ambientLight intensity={theme === 'light' ? 0.8 : 0.2} />
+        <pointLight position={[10, 10, 10]} intensity={theme === 'light' ? 1.5 : 1} />
+        <pointLight 
+          position={[-10, -10, -5]} 
+          intensity={theme === 'light' ? 0.8 : 0.5} 
+          color={theme === 'light' ? '#4361ee' : '#7B2CBF'} 
+        />
         
         <Planet position={[0, 0, 0]} size={1.5} rotationSpeed={0.003} />
-        <FloatingRing position={[0, 0, 0]} size={2.5} thickness={0.08} color="#7B2CBF" />
-        <FloatingRing position={[0, 0, 0]} size={3} thickness={0.05} color="#4CC9F0" />
+        <FloatingRing 
+          position={[0, 0, 0]} 
+          size={2.5} 
+          thickness={0.08} 
+          color={theme === 'light' ? '#4361ee' : '#7B2CBF'} 
+        />
+        <FloatingRing 
+          position={[0, 0, 0]} 
+          size={3} 
+          thickness={0.05} 
+          color={theme === 'light' ? '#2196f3' : '#4CC9F0'} 
+        />
         
-        <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
+        <Stars 
+          radius={100} 
+          depth={50} 
+          count={theme === 'light' ? 3000 : 5000} 
+          factor={4} 
+          saturation={0} 
+          fade 
+          speed={1} 
+        />
         
         <OrbitControls 
           enableZoom={false} 

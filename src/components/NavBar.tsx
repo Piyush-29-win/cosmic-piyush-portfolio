@@ -1,10 +1,12 @@
-
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { GithubIcon, LinkedinIcon, CodeIcon, MailIcon, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useTheme } from '@/contexts/ThemeContext';
+import { Sun, Moon } from 'lucide-react';
 
 const NavBar = () => {
+  const { theme, toggleTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -70,6 +72,20 @@ const NavBar = () => {
           </ul>
           
           <div className="flex gap-3 ml-4">
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={toggleTheme}
+              className="p-2 rounded-full bg-opacity-20 hover:bg-opacity-30 transition-colors"
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? (
+                <Sun size={20} className="text-yellow-400" />
+              ) : (
+                <Moon size={20} className="text-gray-600" />
+              )}
+            </motion.button>
+            
             {socialLinks.map((link) => (
               <motion.a
                 key={link.ariaLabel}
