@@ -21,7 +21,9 @@ const Planet = ({ position = [0, 0, 0] as [number, number, number], size = 1, ro
       <sphereGeometry args={[size, 32, 32]} />
       <meshStandardMaterial 
         map={texture} 
-        color={theme === 'light' ? '#f0f0f0' : 'white'} 
+        color={theme === 'light' ? '#e8eaf6' : 'white'} 
+        metalness={theme === 'light' ? 0.2 : 0.5}
+        roughness={theme === 'light' ? 0.8 : 0.5}
       />
     </mesh>
   );
@@ -48,9 +50,11 @@ const FloatingRing = ({
     <mesh ref={meshRef} position={position}>
       <torusGeometry args={[size, thickness, 16, 100]} />
       <meshStandardMaterial 
-        color={color} 
-        emissive={color} 
-        emissiveIntensity={theme === 'light' ? 0.3 : 0.5} 
+        color={theme === 'light' ? '#4361ee' : color} 
+        emissive={theme === 'light' ? '#4361ee' : color}
+        emissiveIntensity={theme === 'light' ? 0.2 : 0.5} 
+        metalness={theme === 'light' ? 0.3 : 0.5}
+        roughness={theme === 'light' ? 0.7 : 0.5}
       />
     </mesh>
   );
@@ -62,11 +66,11 @@ const SpaceScene = () => {
   return (
     <div className="h-[25rem] w-full">
       <Canvas camera={{ position: [0, 0, 8], fov: 60 }}>
-        <ambientLight intensity={theme === 'light' ? 0.8 : 0.2} />
-        <pointLight position={[10, 10, 10]} intensity={theme === 'light' ? 1.5 : 1} />
+        <ambientLight intensity={theme === 'light' ? 1 : 0.2} />
+        <pointLight position={[10, 10, 10]} intensity={theme === 'light' ? 2 : 1} />
         <pointLight 
           position={[-10, -10, -5]} 
-          intensity={theme === 'light' ? 0.8 : 0.5} 
+          intensity={theme === 'light' ? 1 : 0.5} 
           color={theme === 'light' ? '#4361ee' : '#7B2CBF'} 
         />
         
@@ -87,9 +91,9 @@ const SpaceScene = () => {
         <Stars 
           radius={100} 
           depth={50} 
-          count={theme === 'light' ? 3000 : 5000} 
+          count={theme === 'light' ? 2000 : 5000} 
           factor={4} 
-          saturation={0} 
+          saturation={theme === 'light' ? 0.5 : 0} 
           fade 
           speed={1} 
         />

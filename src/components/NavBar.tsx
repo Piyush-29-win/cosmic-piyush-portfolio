@@ -36,7 +36,13 @@ const NavBar = () => {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-space-dark/90 backdrop-blur-md shadow-md py-3' : 'py-6'}`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled 
+          ? theme === 'light'
+            ? 'bg-white/90 backdrop-blur-md shadow-md py-3'
+            : 'bg-space-dark/90 backdrop-blur-md shadow-md py-3'
+          : 'py-6'
+      }`}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
         <motion.div 
@@ -52,7 +58,6 @@ const NavBar = () => {
           </div>
         </motion.div>
 
-        {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-6">
           <ul className="flex gap-6">
             {navLinks.map((link) => (
@@ -63,7 +68,11 @@ const NavBar = () => {
               >
                 <a 
                   href={link.href}
-                  className="text-gray-300 hover:text-cosmic-blue transition-colors"
+                  className={`transition-colors ${
+                    theme === 'light' 
+                      ? 'text-gray-600 hover:text-cosmic-blue' 
+                      : 'text-gray-300 hover:text-cosmic-blue'
+                  }`}
                 >
                   {link.name}
                 </a>
@@ -76,7 +85,11 @@ const NavBar = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={toggleTheme}
-              className="p-2 rounded-full bg-opacity-20 hover:bg-opacity-30 transition-colors"
+              className={`p-2 rounded-full transition-colors ${
+                theme === 'light'
+                  ? 'bg-gray-100 hover:bg-gray-200'
+                  : 'bg-gray-800 hover:bg-gray-700'
+              }`}
               aria-label="Toggle theme"
             >
               {theme === 'dark' ? (
@@ -109,7 +122,11 @@ const NavBar = () => {
             <Button
               variant="default"
               size="sm"
-              className="bg-gradient-to-r from-cosmic-blue to-cosmic-purple hover:from-cosmic-purple hover:to-cosmic-blue text-white"
+              className={`${
+                theme === 'light'
+                  ? 'bg-gradient-to-r from-cosmic-blue to-cosmic-purple hover:from-cosmic-purple hover:to-cosmic-blue text-white'
+                  : 'bg-gradient-to-r from-cosmic-blue to-cosmic-purple hover:from-cosmic-purple hover:to-cosmic-blue text-white'
+              }`}
               onClick={() => {
                 document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
               }}
@@ -119,7 +136,6 @@ const NavBar = () => {
           </motion.div>
         </div>
         
-        {/* Mobile Nav Trigger */}
         <div className="md:hidden">
           <Button
             variant="ghost"
@@ -133,7 +149,6 @@ const NavBar = () => {
         </div>
       </div>
       
-      {/* Mobile Nav Menu */}
       {isMobileMenuOpen && (
         <motion.div
           initial={{ opacity: 0, height: 0 }}
